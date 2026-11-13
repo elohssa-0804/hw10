@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NP-Completeness 教學簡報</title>
+<style>
+  body { margin: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #1e1e1e; color: #fff; overflow: hidden; }
+  .slides { display: flex; transition: transform 0.5s ease-in-out; height: 100vh; width: 100vw; }
+  .slide { min-width: 100vw; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 2rem; box-sizing: border-box; text-align: center; }
+  h1 { color: #4da6ff; font-size: 3.5rem; margin-bottom: 1rem; }
+  h2 { color: #4da6ff; font-size: 2.5rem; margin-bottom: 2rem; }
+  ul { text-align: left; max-width: 800px; font-size: 1.5rem; line-height: 2; background: #2a2a2a; padding: 2rem 3rem; border-left: 5px solid #4da6ff; border-radius: 8px; }
+  li { margin-bottom: 1rem; }
+  strong { color: #ffcc00; }
+  .controls { position: fixed; bottom: 30px; width: 100%; display: flex; justify-content: center; gap: 20px; }
+  button { background: #4da6ff; color: #1e1e1e; border: none; padding: 12px 24px; font-size: 1.2rem; font-weight: bold; cursor: pointer; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.3); }
+  button:hover { background: #3388ff; }
+</style>
+</head>
+<body>
+  <div class="slides" id="slides">
+    <!-- 投影片 1 -->
+    <div class="slide">
+      <h1>演算法教學：NP-Completeness</h1>
+      <p style="font-size: 1.5rem; color: #aaa;">主講人：翁至瓏 | 資工考研筆記知識庫</p>
+    </div>
+    <!-- 投影片 2 -->
+    <div class="slide">
+      <h2>1. 什麼是 P 與 NP？</h2>
+      <ul>
+        <li><strong>P 問題：</strong>能在「多項式時間 (Polynomial time)」內解決的問題。</li>
+        <li><strong>NP 問題：</strong>能在「多項式時間」內「驗證 (Verify)」給定解的問題。</li>
+        <li>所有 P 都是 NP，但 P 是否等於 NP 至今仍是千禧年大獎難題。</li>
+      </ul>
+    </div>
+    <!-- 投影片 3 -->
+    <div class="slide">
+      <h2>2. NP-Hard 與 NP-Complete</h2>
+      <ul>
+        <li><strong>NP-Hard：</strong>所有 NP 問題都能在多項式時間內歸約 (Reduce) 到它，代表它至少跟所有 NP 一樣難。</li>
+        <li><strong>NP-Complete (NPC)：</strong>它既是 NP，也是 NP-Hard。</li>
+        <li>意義：只要解出任何一個 NPC 問題的 P 時間演算法，就能證明 P = NP！</li>
+      </ul>
+    </div>
+    <!-- 投影片 4 -->
+    <div class="slide">
+      <h2>3. 經典的 NPC 問題</h2>
+      <ul>
+        <li><strong>SAT：</strong>布林可滿足性問題 (第一個被證明的 NPC)。</li>
+        <li><strong>Clique：</strong>分團問題。</li>
+        <li><strong>Vertex Cover：</strong>點覆蓋問題 (由 Clique 歸約而來)。</li>
+        <li><strong>Traveling Salesperson (TSP)：</strong>旅行推銷員問題。</li>
+      </ul>
+    </div>
+  </div>
+  
+  <div class="controls">
+    <button onclick="prevSlide()">◀ 上一頁</button>
+    <button onclick="nextSlide()">下一頁 ▶</button>
+  </div>
+
+  <script>
+    let current = 0;
+    const slides = document.getElementById('slides');
+    const total = document.querySelectorAll('.slide').length;
+    
+    function showSlide(index) {
+      if(index < 0) current = 0;
+      else if(index >= total) current = total - 1;
+      else current = index;
+      slides.style.transform = `translateX(-${current * 100}vw)`;
+    }
+    
+    function nextSlide() { showSlide(current + 1); }
+    function prevSlide() { showSlide(current - 1); }
+  </script>
+</body>
+</html>
